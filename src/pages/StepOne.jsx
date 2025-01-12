@@ -1,19 +1,30 @@
 import React from "react";
 import { ProgressBar } from "../components/ProgressBar";
-import Header from "../components/Header";
-import { AppLable } from "../components/AppLable";
-import { AppButton } from "../components/AppButton";
 
 const StepOne = () => {
   return (
     <div className="container">
       <div className="wrapper">
         <div className="single-input-quiz">
-          <ProgressBar/>
+
+
+          <ProgressBar currentStep={0}/>
           <div className="question">
-            <Header headerText="1. Занимательный вопрос" textType="h2"/>
-            <AppLable labelText="Required" labelType="text" labelName="answer" labelPlaceholder="Ваш ответ" labelError="Введите номер в правильном формате например"/>
-            <AppButton buttonText="Далее" buttonType="button" isDisabled={false}/>
+            <h2>1. Занимательный вопрос</h2>
+            <label className="input-wrapper">
+              <input
+              required 
+              type="text"
+              name="answer"
+              placeholder="Ваш ответ" 
+              />
+              <span id="error-message">
+                Введите номер в правильн формате например
+              </span>
+            </label>
+            <button type="button" disabled id="next-btn">
+              Далее
+            </button>
           </div>
         </div>
       </div>

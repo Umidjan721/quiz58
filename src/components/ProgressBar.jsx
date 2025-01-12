@@ -1,6 +1,7 @@
 import React from "react";
 
-export const ProgressBar = () => {
+export const ProgressBar = ({currentStep}) => {
+    const variable = [1,2,3,4]
     return(
         <div className="indicator">
         <div className="indicator__text">
@@ -10,10 +11,12 @@ export const ProgressBar = () => {
           <span className="indicator__value">15%</span>
         </div>
         <div className="indicator__progressbar">
-          <div className="indicator__unit indicator__unit-1"></div>
-          <div className="indicator__unit indicator__unit-2"></div>
-          <div className="indicator__unit indicator__unit-3"></div>
-          <div className="indicator__unit indicator__unit-4"></div>
+          {variable.map((e, i)=>(
+            <div key={i} className=
+            {`indicator_ unit indicator_unit-${e} ${currentStep>i && "_active"}`}>
+            </div>
+          ))}
+
         </div>
       </div>
     );

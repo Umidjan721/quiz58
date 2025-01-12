@@ -1,59 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
+import { ProgressBar } from "../components/ProgressBar";
+import Header from "../components/Header";
+import { Link } from "react-router-dom";
 
 const StepThree = () => {
+  const variants = [
+    {
+      id: "variant-1",
+      labelText: "Ваш ответ 1",
+      imgSrc: "./img/laugh.png",
+      altText: "laugh",
+    },
+    {
+      id: "variant-2",
+      labelText: "Ваш ответ 2",
+      imgSrc: "./img/hearts.png",
+      altText: "hearts",
+    },
+    {
+      id: "variant-3",
+      labelText: "Ваш ответ 3",
+      imgSrc: "./img/smirk.png",
+      altText: "smirk",
+    },
+    {
+      id: "variant-4",
+      labelText: "Ваш ответ 4",
+      imgSrc: "./img/fright.png",
+      altText: "fright",
+    },
+  ];
+
+
+  const [selectedVariant, setSelectedVariant] = useState(null);
+  const handleSelect = (id) => {
+    setSelectedVariant(id);
+  };
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
-          <div className="indicator">
-            <div className="indicator__text">
-              <span className="indicator__description">
-                Скидка за прохождение опроса:
-              </span>
-              <span className="indicator__value">15%</span>
-            </div>
-            <div className="indicator__progressbar">
-              <div className="indicator__unit indicator__unit-1 _active"></div>
-              <div className="indicator__unit indicator__unit-2 _active"></div>
-              <div className="indicator__unit indicator__unit-3"></div>
-              <div className="indicator__unit indicator__unit-4"></div>
-            </div>
-          </div>
+          <ProgressBar currentStep={2} />
+
           <div className="question">
-            <h2>3. Занимательный вопрос</h2>
+            <Header headerText="3. Занимательный вопрос" textType="h2" />
+
             <ul className="emoji-variants">
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-1" />
-                <label htmlFor="variant-1">
-                  <img src="./img/laugh.png" alt="laugh" />
-                  <p>Ваш ответ 1</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-2" />
-                <label htmlFor="variant-2">
-                  <img src="./img/hearts.png" alt="hearts" />
-                  <p>Ваш ответ 2</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-3" />
-                <label htmlFor="variant-3">
-                  <img src="./img/smirk.png" alt="smirk" />
-                  <p>Ваш ответ 3</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-4" />
-                <label htmlFor="variant-4">
-                  <img src="./img/fright.png" alt="fright" />
-                  <p>Ваш ответ 4</p>
-                </label>
-              </li>
+              {variants.map((elem) => (
+                <li className="variant-wrapper" key={elem.id}>
+                  <input
+                    type="radio"
+                    name="variant"
+                    id={elem.id}
+                    checked={selectedVariant === elem.id}
+                    onChange={() => handleSelect(elem.id)}
+                  />
+                  <label htmlFor={elem.id}>
+                    <img src={elem.imgSrc} alt={elem.altText} />
+                    <p>{elem.labelText}</p>
+                  </label>
+                </li>
+              ))}
             </ul>
-            <button type="button" disabled id="next-btn">
-              Далее
-            </button>
+
+            <Link to="/step-four">
+              <button
+                type="button"
+                id="next-btn"
+                disabled={!selectedVariant} 
+              >
+                Далее
+              </button>
+            </Link>
           </div>
         </div>
       </div>

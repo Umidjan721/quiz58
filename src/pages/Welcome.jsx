@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { AppLable } from "../components/AppLable";
 import { AppButton } from "../components/AppButton";
+import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
   //регулярные выражения
@@ -14,16 +15,19 @@ const Welcome = () => {
   //передает состояние в наш пропс hasError
   const[nameError, setNameError]=useState(false);
   const[phoneError, setPhoneError]=useState(false);
-  const[buttonError, setButtonError]= useState(true);
 
+  const[buttonError, setButtonError]= useState(true);
+  const navigate = useNavigate()
   const handleClick = ()=>{
-   if(!name ){
+
+   if(!RegexName.test(name) ){
     setNameError(true);
-  }else if(!phone){
+  }else if(!RegexPhone.test(phone)){
     setPhoneError(true);
   } else {
     setNameError(false);
     setPhoneError(false);  
+    navigate("/step-one")
   }
 };
    
