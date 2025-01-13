@@ -1,39 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ProgressBar } from "../components/ProgressBar";
+import Header from "../components/Header";
+import { AnswerItem } from "../components/AnswerItem";
+import { AddButton } from "../components/AddButton";
+import { useNavigate } from "react-router-dom";
 
 const StepFour = () => {
+  const navigate = useNavigate();
+  const [checkVariants, setCheckVariants] = useState(null);
+  const variants = [1, 2, 3, 4, 5];
+  const course = JSON.parse(localStorage.getItem("userInfo"));
+
+  // Обновление данных в localStorage при изменении checkVariants
+  useEffect(() => {
+    const userInfo = {
+      ...JSON.parse(localStorage.getItem("userInfo")),
+      checkVariants,
+    };
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+  }, [checkVariants]);
+
+  // Обработчик выбора варианта
+  const handleSelectVariant = (variant) => {
+    setCheckVariants(variant);
+  };
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
-        <ProgressBar currentStep={3}/>
+          <ProgressBar currentStep={3} />
           <div className="question">
-            <h2>4. Занимательный вопрос</h2>
+            <Header headerText={`Как хорошо вы знаете ${course.checkedAnswer}`} textType="h2" />
             <ul className="level-variants">
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-1" />
-                <label htmlFor="variant-1">1</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-2" />
-                <label htmlFor="variant-2">2</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-3" />
-                <label htmlFor="variant-3">3</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-4" />
-                <label htmlFor="variant-4">4</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-5" />
-                <label htmlFor="variant-5">5</label>
-              </li>
+              {variants.map((elem, index) => (
+                <AnswerItem
+                  key={index}
+                  answerText={elem}
+                  answerVariants={index}
+                  onChange={() => handleSelectVariant(elem)} // обновляем состояние
+                />
+              ))}
             </ul>
-            <button type="button" id="next-btn" disabled>
-              Далее
-            </button>
+            <AddButton
+              isDisabled={!checkVariants} // блокировка кнопки, если вариант не выбран
+              buttonType="button"
+              buttonClick={() => navigate("/thanks")} // переход на страницу благодарности
+            />
           </div>
         </div>
       </div>
