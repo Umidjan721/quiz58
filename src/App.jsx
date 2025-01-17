@@ -5,6 +5,7 @@ import StepTwo from "./pages/StepTwo";
 import StepThree from "./pages/StepThree";
 import StepFour from "./pages/StepFour";
 import Thanks from "./pages/Thanks";
+import { ThemeProvider } from "./contexts/themeProvider";
 import "./styles/main.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
@@ -33,13 +34,15 @@ const router = createBrowserRouter([
     path:"/thanks",
     element:<Thanks/>
   },
-])
+]);
 
 const App = () => {
   return (
-    <RouterProvider router={router}>
-      <div className="App"/>
-    </RouterProvider>
+    <ThemeProvider>
+      <RouterProvider router={router}>
+       <div className="App"/>
+      </RouterProvider>
+    </ThemeProvider>
   );
 };
 

@@ -47,6 +47,10 @@ a {
   justify-content: center;
 }
 
+.container._dark{
+  background-color: #000;
+}
+
 .wrapper {
   width: 338px;
   margin: 0 auto;

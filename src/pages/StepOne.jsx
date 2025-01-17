@@ -8,19 +8,18 @@ const StepOne = () => {
   const [buttonDisabled, setButtonDisabled] = useState(true); 
 
   useEffect(() => {
-    // Сохраняем значение в localStorage, когда оно меняется
     if (answer) {
       const userInfo = JSON.parse(localStorage.getItem("userInfo")) || {};
       userInfo.answer = answer;
       localStorage.setItem("userInfo", JSON.stringify(userInfo));
-      setButtonDisabled(false); // Активируем кнопку, если есть ответ
+      setButtonDisabled(false); 
     } else {
-      setButtonDisabled(true); // Блокируем кнопку, если нет ответа
+      setButtonDisabled(true); 
     }
   }, [answer]);
 
   const handleInputChange = (event) => {
-    setAnswer(event.target.value); // Обновляем состояние при изменении ввода
+    setAnswer(event.target.value); 
   };
 
   return (
@@ -36,8 +35,8 @@ const StepOne = () => {
                 type="text"
                 name="answer"
                 placeholder="Ваш ответ"
-                value={answer} // Связано с состоянием
-                onChange={handleInputChange} // Обработчик изменения
+                value={answer} 
+                onChange={handleInputChange} 
               />
               <span id="error-message">
                 Введите номер в правильном формате, например
@@ -47,7 +46,7 @@ const StepOne = () => {
               <button
                 type="button"
                 id="next-btn"
-                disabled={buttonDisabled} // Кнопка заблокирована, если нет ответа
+                disabled={buttonDisabled} 
               >
                 Далее
               </button>

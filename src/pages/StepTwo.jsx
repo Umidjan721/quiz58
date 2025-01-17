@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ProgressBar } from "../components/ProgressBar";
 import Header from "../components/Header";
-import { AnswerItem } from "../components/AnswerItem.tsx";
+import { AnswerItems } from "../components/AnswerItems.jsx";
 import { Link } from "react-router-dom";
 
 const StepTwo = () => {
@@ -26,7 +26,7 @@ const StepTwo = () => {
 const [checkedAnswer, setCheckedAnswer]= useState("")
 useEffect(()=>{
   const userInfo = { ...JSON.parse(localStorage.getItem("userInfo")), checkedAnswer};
-  localStorage.setItem("userInfo", JSON.stringify(userInfo))
+  localStorage.setItem("userInfo", JSON.stringify(userInfo));
 }, [checkedAnswer]);
   return (
     <div className="container">
@@ -37,7 +37,7 @@ useEffect(()=>{
             <Header headerText="Выберите курс." textType="h2" />
             <ul className="variants">
               {variants.map((elem)=>{
-                return(<AnswerItem 
+                return(<AnswerItems 
                 key={elem.id} 
                 answerText={elem.labelText} 
                 answerVariants={elem.id}

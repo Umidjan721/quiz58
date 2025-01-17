@@ -1,51 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ProgressBar } from "../components/ProgressBar";
 import Header from "../components/Header";
-import { AnswerItem } from "../components/AnswerItem";
+import { AnswerItems } from "../components/AnswerItems";
 import { AddButton } from "../components/AddButton";
 import { useNavigate } from "react-router-dom";
 
 const StepFour = () => {
-  const navigate = useNavigate();
-  const [checkVariants, setCheckVariants] = useState(null);
-  const variants = [1, 2, 3, 4, 5];
-  const course = JSON.parse(localStorage.getItem("userInfo"));
+  const navigate = useNavigate()
+  const [checkVariants, setCheckVariants] = useState(null)
 
-  // Обновление данных в localStorage при изменении checkVariants
-  useEffect(() => {
-    const userInfo = {
-      ...JSON.parse(localStorage.getItem("userInfo")),
-      checkVariants,
-    };
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
-  }, [checkVariants]);
+  const variants = [1, 2, 3, 4, 5]
+  const cource = JSON.parse(localStorage.getItem("userInfo"))
 
-  // Обработчик выбора варианта
-  const handleSelectVariant = (variant) => {
-    setCheckVariants(variant);
-  };
-
+    useEffect(()=>{
+      const userInfo = {
+        ...JSON.parse(localStorage.getItem("userInfo")),
+        checkVariants,
+      };
+      localStorage.setItem("userInfo",JSON.stringify(userInfo));
+  },[checkVariants])
   return (
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
           <ProgressBar currentStep={3} />
           <div className="question">
-            <Header headerText={`Как хорошо вы знаете ${course.checkedAnswer}`} textType="h2" />
+            <Header headerText={`Как хорошо вы знаете ${cource.checkedAnswer}`} textType="h2" />
             <ul className="level-variants">
-              {variants.map((elem, index) => (
-                <AnswerItem
-                  key={index}
-                  answerText={elem}
-                  answerVariants={index}
-                  onChange={() => handleSelectVariant(elem)} // обновляем состояние
-                />
-              ))}
+              {variants.map((elem, index) =>
+                  <AnswerItems
+                    answerText={elem}
+                    answerVariants={index}
+                    key={index}
+                    onChange={()=>setCheckVariants(elem)}
+                  />)}
             </ul>
             <AddButton
-              isDisabled={!checkVariants} // блокировка кнопки, если вариант не выбран
-              buttonType="button"
-              buttonClick={() => navigate("/thanks")} // переход на страницу благодарности
+              isDisabled={!checkVariants}
+              buttonClick={()=>navigate("/thanks")}
             />
           </div>
         </div>

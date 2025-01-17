@@ -1,37 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import Header from "../components/Header";
+import AddText from "../components/AddText";
+import { AddButton } from "../components/AddButton";
 
 const Thanks = () => {
-  // Состояние для хранения данных пользователя
-  const [userInfo, setUserInfo] = useState(null);
+  const data = JSON.parse(localStorage.getItem("userInfo")) || {}; 
+  const keyInfo = [
+    "Имя",
+    "Номер телефона",
+    "Узнали о нас",
+    "Курс",
+    "Emoji",
+    "На сколько знаком предмет"
+  ];
 
-  useEffect(() => {
-    // Загружаем данные из localStorage
-    const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
-    setUserInfo(storedUserInfo); // Сохраняем их в состояние
-  }, []);
-
-  // Если данные не загружены, показываем сообщение о загрузке
-  if (!userInfo) {
-    return <div>Loading...</div>;
-  }
+  const keys = Object.keys(data); 
 
   return (
     <div className="container">
       <div className="wrapper">
         <div className="thanks">
           <img src="./img/bell.png" alt="bell" />
-          <h1>Спасибо за прохождение опроса, {userInfo.checkedAnswer}!</h1> {/* Используем данные из localStorage */}
-          <p>
-            Ваши данные:
-          </p>
-          <ul>
-            <li><strong>Выбранный курс:</strong> {userInfo.checkedAnswer}</li>
-            <li><strong>Ваш вариант:</strong> {userInfo.checkVariants}</li>
-          </ul>
-          <p>Получи свою скидку по ссылке ниже или другое блаблабла</p>
-          <button type="button" id="get-link">
-            Получить ссылку
-          </button>
+
+          <Header headerText="Спасибо за прохождение опроса!" textType="h1" />
+          {keys.map((key, index) => (
+            <AddText
+              key={index}
+              addText={`${keyInfo[index] || key}: ${data[key] || "не указано"}`}
+            />
+          ))}
+        
+          <AddText addText="Получи свою скидку по ссылке ниже" />
+
+          <AddButton
+            buttonText="Получить ссылку"
+            buttonType="button"
+            buttonId="get-link"
+          />
         </div>
       </div>
     </div>

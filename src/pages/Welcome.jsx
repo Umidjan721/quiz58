@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import Header from "../components/Header";
 import { AppLable } from "../components/AppLable";
-import { AppButton } from "../components/AppButton";
+import { AddButton } from "../components/AddButton";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext, themes } from "../contexts/themeContext";
 
@@ -48,7 +48,7 @@ useEffect(()=>{
     <div className={`container ${theme===themes.dark && "_dark"}`}>
       <div className="wrapper">
         <div className="welcome">
-          <AppButton buttonType="button"
+          <AddButton buttonType="button"
           buttonClick={toggleTheme}
           buttonText={theme===themes.dark ? "темная тема": "светлая тема"}
           />
@@ -56,7 +56,7 @@ useEffect(()=>{
           <form className="welcome__form">
             <AppLable labelText="Ваше имя" labelName="username" labelPlaceholder="Введите ваше имя " labelType="text" labelError="Введите имя в правильном формате например" inputValue={name} inputChange={setName} hasError={nameError}/>
             <AppLable labelText="Ваш номер" labelName="phone" labelPlaceholder="+998 9- --- -- --" labelType="tel" labelError="Введите номер в правильном формате" inputValue={phone} inputChange={setPhone} hasError={phoneError}/>
-            <AppButton
+            <AddButton
              buttonClick={handleClick}
              buttonText="Далее" 
              buttonType="button" 
